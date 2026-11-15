@@ -1,0 +1,38 @@
+name: 'Terraform OIDC CI/CD on GCP'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform:
+    name: 'Terraform Deploy'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to google cloud
+        uses: google-github-actions/auth@v4
+        with:
+          workload_identity_provider: 'projects/815182455529/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github-terraform-sa@project-92dbe3cf-b4e8-43e8-927.iam.gserviceaccount.com'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.8.0'
+
+      - name: Terraform Init
+        run: Terraform init
+
+      - name: Terraform apply 
+        uses: terraform apply -auto-approve
+
