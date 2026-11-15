@@ -32,9 +32,7 @@ jobs:
 
       - name: Terraform Init
         run: Terraform init
-        working-directory: terraform-project3
-
+      
       - name: Terraform apply 
         run: terraform apply -auto-approve
-        working-directory: terraform-project3
 
