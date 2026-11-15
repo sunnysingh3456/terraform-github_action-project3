@@ -13,5 +13,5 @@ variable "region" {
 variable "bucket_name" {
   type         = string
   description  = "GCS Storage Bucket Name"
-  default      = "terraform-bucket-proj3-king3445fd"
+  default      = "GCP-Storage-bucket-lq2dk3"
 }
